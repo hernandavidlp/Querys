@@ -26,8 +26,8 @@ y no consigo encontrar un nro que me convierta a la salida como yo quiero: (DD/M
 Tambien concatento el nombre y apellido por una cuestión estética. No es necesario.
 */
 
---Ejercicio 1
 USE Devplace;
+--Ejercicio 1
 SELECT c.dni, c.apellido, c.nombre, v.totalventa 'ventas totales' 
 FROM ventas v INNER JOIN clientes c 
 ON v.codigo_cliente=c.codigo;
@@ -46,12 +46,13 @@ FROM clientes c inner join ventas v
 ON c.codigo=v.codigo_cliente;
 
 --Ejercicio 4
+DECLARE @nombre_a_buscar varchar(30) = ''; --<<Cargá la variable con el nombre a buscar
 SELECT c.dni 'DNI', CONCAT(c.apellido, ', ', c.nombre) 'Apellido y Nombre', 
 c.telefono 'Teléfono', v.nro_factura '# Factura', 
 CONCAT(CONVERT(varchar(10), v.fechayhora_venta, 103), ' ',  
 CONVERT(varchar(8), v.fechayhora_venta, 108)) 'Fecha y Hora'
 FROM clientes c inner join ventas v
-ON c.codigo=v.codigo_cliente and c.nombre like '%susana%'
+ON c.codigo=v.codigo_cliente and c.nombre like '%'+@nombre_a_buscar+'%'
 ORDER BY c.dni ASC;
 
 --Ejercicio 5
